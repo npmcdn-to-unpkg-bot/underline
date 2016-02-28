@@ -1,0 +1,10 @@
+{
+  "name": "underline",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "babel --plugins transform-react-jsx src -d build"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.5.1"
+  }
+}
