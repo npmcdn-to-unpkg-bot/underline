@@ -52,12 +52,12 @@ var Book = React.createClass({
 var SearchForm = React.createClass({
 	handleSubmit: function(e) {
 	    e.preventDefault();
-	    var keyword = React.findDOMNode(this.refs.keyword).value.trim();
+	    var keyword = ReactDOM.findDOMNode(this.refs.keyword).value.trim();
 	    if (!keyword) {
 			return;
 	    }
 	    this.props.onSearchSubmit(keyword);
-	    React.findDOMNode(this.refs.keyword).value = '';
+	    ReactDOM.findDOMNode(this.refs.keyword).value = '';
 	    return;
 	},
 	render: function() {
@@ -92,8 +92,8 @@ var SearchResultBox = React.createClass({
 			dataType: 'jsonp',
 			type: 'POST',
 			success: function(data) {
-				console.log("url:"+this.props.url+"&q="+keyword+"&output=json");
-				console.log(keyword);
+				//console.log("url:"+this.props.url+"&q="+keyword+"&output=json");
+				//console.log(keyword);
 				this.setState({data: data.channel.item});
 			}.bind(this),
 				error: function(xhr, status, err) {
@@ -123,7 +123,7 @@ var SearchResultBox = React.createClass({
 
 var SearchList = React.createClass({
   render: function() {
-  	console.log(this.props.data);
+  	//console.log(this.props.data);
   	var bookNodes = this.props.data.map(function (book) {
 		return (
 			<Book author={book.author} key={book.isbn} book={book}>
