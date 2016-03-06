@@ -2,9 +2,14 @@
   "name": "underline",
   "version": "1.0.0",
   "scripts": {
-    "build": "babel --plugins transform-react-jsx src -d build"
+    "build": "babel --watch --plugins transform-react-jsx src -d build"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1"
+  },
+  "dependencies": {
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-tools": "^0.13.3"
   }
 }

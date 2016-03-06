@@ -5,7 +5,7 @@ var Header = React.createClass({
 		return (
 			<div className="headWrapper">
 				<div className="logo">
-					Underline
+					Underline22
 				</div>
 				<SearchForm />
 			</div>
@@ -29,7 +29,7 @@ var SearchForm = React.createClass({
 	}
 });
 
-React.render(
+ReactDOM.render(
 	<Header />,
 	document.getElementById('header')
 );
@@ -96,7 +96,7 @@ var BookList = React.createClass({
 });
 
 
-React.render(
+ReactDOM.render(
   <BookListBox />,
   document.getElementById('myBooks')
 );

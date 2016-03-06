@@ -8,7 +8,7 @@ var Header = React.createClass({
 			React.createElement(
 				"div",
 				{ className: "logo" },
-				"Underline"
+				"Underline22"
 			),
 			React.createElement(SearchForm, null)
 		);
@@ -30,7 +30,7 @@ var SearchForm = React.createClass({
 	}
 });
 
-React.render(React.createElement(Header, null), document.getElementById('header'));
+ReactDOM.render(React.createElement(Header, null), document.getElementById('header'));
 
 var Book = React.createClass({
 	mixins: [ReactFireMixin],
@@ -99,4 +99,4 @@ var BookList = React.createClass({
 	}
 });
 
-React.render(React.createElement(BookListBox, null), document.getElementById('myBooks'));
+ReactDOM.render(React.createElement(BookListBox, null), document.getElementById('myBooks'));
