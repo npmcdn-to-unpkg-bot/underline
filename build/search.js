@@ -17,11 +17,11 @@ React.render(React.createElement(Header, null), document.getElementById('header'
 var Book = React.createClass({
 	mixins: [ReactFireMixin],
 	componentWillMount: function () {
-		this.firebaseRef = new Firebase("https://underline.firebaseio.com/books/");
-		this.firebaseRef.on("child_added", function (dataSnapshot) {
-			this.books.push(dataSnapshot.val());
+		this.bookFirebaseRef = new Firebase("https://underline.firebaseio.com/books/");
+		this.booUserFirebaseRef = new Firebase("https://underline.firebaseio.com/bookusers/");
+		this.bookFirebaseRef.on("child_added", function (dataSnapshot) {
 			this.setState({
-				books: this.books
+				books: dataSnapshot.val()
 			});
 		}.bind(this));
 	},
@@ -29,7 +29,13 @@ var Book = React.createClass({
 		console.log("onclick!!!");
 		console.log(this.props.book);
 		e.preventDefault();
-		this.firebaseRef.push(this.props.book);
+		var newBookRef = this.bookFirebaseRef.push(this.props.book);
+		if (newBookRef.key()) {
+			var userData = sessionStorage.getItem('underline-user-data');
+			userData = JSON.parse(userData);
+			this.booUserFirebaseRef.push({ book: newBookRef.key(), user: userData.uid });
+		}
+		console.log(newBookRef.key());
 		this.setState({ book: "" });
 	},
 	render: function () {
@@ -131,10 +137,10 @@ var SearchResultBox = React.createClass({
 var SearchList = React.createClass({
 	render: function () {
 		//console.log(this.props.data);
-		var bookNodes = this.props.data.map(function (book) {
+		var bookNodes = this.props.data.map(function (book, i) {
 			return React.createElement(
 				Book,
-				{ author: book.author, key: book.isbn, book: book },
+				{ author: book.author, key: i, book: book },
 				book.title
 			);
 		});
