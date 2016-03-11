@@ -10,8 +10,10 @@ var Load = React.createClass({
 		  ReactDOM.findDOMNode(this.refs.userInfo).value = authData.uid;
 		  ReactDOM.findDOMNode(this.refs.userPicture).src = authData.password.profileImageURL;
 		} else {
-		  alert("User is logged out");
-		  window.location = '/login';
+		  console.log("User is logged out:"+window.location.pathname);
+		  if( window.location.pathname != '/login/' ){
+		  	window.location = '/login';
+		  }
 		}
 
 	},

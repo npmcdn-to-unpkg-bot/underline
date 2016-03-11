@@ -35,7 +35,7 @@ var LoginForm = React.createClass({
 	},
 	componentDidMount: function() {
 		var params = getParams();
-		console.log(params.email);
+		//console.log(params.email);
 		if( params.email ){
 			ReactDOM.findDOMNode(this.refs.email).value = params.email;
 		}
