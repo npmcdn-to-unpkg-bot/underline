@@ -23,13 +23,49 @@ var Book = React.createClass({
 var BookListBox = React.createClass({
 	mixins: [ReactFireMixin],
 	loadBooksFromServer: function() {
-	    this.bindAsArray(new Firebase(firebaseUrl + "books"), "data");
+	    //this.bindAsArray(new Firebase(firebaseUrl + "books"), "data");
+	    //var bookusers = new Firebase(firebaseUrl + "bookusers")
+	    //var userId = ReactDOM.findDOMNode(this.refs.userInfo).value;
+	    //var myBooks = bookusers.child('user:c30eac46-f9d5-45a0-b4db-19c947bb3a4e');
+	    //this.bindAsArray(myBooks, "myBooksArray");
+	    //console.log(new Firebase(firebaseUrl + "books"));
+	    //this.myBooksArray.map(function (book, index) {
+		//	console.log(index + ":" + book);
+	    //});
+	    var myBooks = [];
+	    var bookusersRef = new Firebase(firebaseUrl + "bookusers");
+		bookusersRef.once("value", function(snapshot) {
+		  // The callback function will get called twice, once for "fred" and once for "barney"
+		  snapshot.forEach(function(childSnapshot) {
+
+		  	//TODO : 책 상세를 가져오는 이 부분은 Book에서 처리하는것이 좋겠다.
+		    var childData = childSnapshot.val();
+		    var bookKey = childData.book;
+		    console.log(bookKey);
+		    bookRef = new Firebase(firebaseUrl + "books/" + bookKey);
+		    bookRef.once("value", function(booksnapshot) {
+		    	myBooks.push(booksnapshot.val());
+		    	//this.setState({ data : myBooks });
+		    	
+		    });
+		    // key will be "fred" the first time and "barney" the second time
+		    var key = childSnapshot.key();
+		    // childData will be the actual contents of the child
+		    var childData = childSnapshot.val();
+		  });
+		  return myBooks
+		});
+		
+		
+	},
+	setBooksAsArray: function(){
+		this.bindAsArray(this.loadBooksFromServer(), "data");
 	},
 	getInitialState: function() {
 		return {data: []};
 	},
 	componentDidMount: function() {
-		this.loadBooksFromServer();
+		this.setBooksAsArray();
 	},
 	render: function() {
 		return (
